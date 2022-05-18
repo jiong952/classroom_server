@@ -1,6 +1,7 @@
 package com.zjh.classroom_db.pojo;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Classroom {
     private Integer classroomId;
@@ -11,6 +12,10 @@ public class Classroom {
 
     private String classroomName;
 
+    private String campusName;
+
+    private String buildingName;
+
     private String adminName;
 
     private Integer adminId;
@@ -18,6 +23,32 @@ public class Classroom {
     private Date createTime;
 
     private Date updateTime;
+
+    private Map<String,Object> state;
+
+    public Map<String, Object> getState() {
+        return state;
+    }
+
+    public void setState(Map<String, Object> state) {
+        this.state = state;
+    }
+
+    public String getCampusName() {
+        return campusName;
+    }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
 
     public String getAdminName() {
         return adminName;

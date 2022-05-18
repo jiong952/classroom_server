@@ -3,10 +3,13 @@ package com.zjh.classroom_db.controller;
 import com.zjh.classroom_db.pojo.Classroom;
 import com.zjh.classroom_db.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张俊鸿
@@ -14,6 +17,7 @@ import java.util.List;
  * @since 2022-05-18 16:59
  */
 @RestController()
+@CrossOrigin
 @RequestMapping("/classroom")
 public class ClassroomController {
     @Autowired
@@ -21,7 +25,11 @@ public class ClassroomController {
     @RequestMapping("/get")
     public Object getClassroomList(String query,int pagenum,int pagesize){
         List<Classroom> classroomList = classroomService.getClassroomList(query, pagenum, pagesize);
-        return classroomList;
+        int total = classroomService.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("classroomList",classroomList);
+        map.put("total",total);
+        return map;
     }
 
     @RequestMapping("/delete")

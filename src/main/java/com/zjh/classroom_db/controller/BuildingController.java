@@ -4,10 +4,13 @@ import com.zjh.classroom_db.pojo.Building;
 import com.zjh.classroom_db.pojo.Campus;
 import com.zjh.classroom_db.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张俊鸿
@@ -15,6 +18,7 @@ import java.util.List;
  * @since 2022-05-18 16:49
  */
 @RestController()
+@CrossOrigin
 @RequestMapping("/building")
 public class BuildingController {
     @Autowired
@@ -23,7 +27,11 @@ public class BuildingController {
     @RequestMapping("/get")
     public Object getBuildingList(String query,int pagenum,int pagesize){
         List<Building> buildingList = buildingService.getBuildingList(query, pagenum, pagesize);
-        return buildingList;
+        int total = buildingService.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("buildingList",buildingList);
+        map.put("total",total);
+        return map;
     }
 
     @RequestMapping("/delete")

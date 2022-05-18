@@ -106,4 +106,13 @@ public class UserService {
         if(i > 0) flag = true;
         return flag;
     }
+
+    /**
+     * 返回总数
+     *
+     * @return int
+     */
+    public int getTotal(){
+        return  (int)userMapper.countByExample(null);
+    }
 }

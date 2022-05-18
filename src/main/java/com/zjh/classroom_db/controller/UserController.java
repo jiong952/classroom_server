@@ -3,11 +3,14 @@ package com.zjh.classroom_db.controller;
 import com.zjh.classroom_db.pojo.User;
 import com.zjh.classroom_db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张俊鸿
@@ -15,6 +18,7 @@ import java.util.List;
  * @since 2022-05-18 15:08
  */
 @RestController()
+@CrossOrigin
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -23,7 +27,11 @@ public class UserController {
     @RequestMapping("/get")
     public Object getUserList(String query,int pagenum,int pagesize){
         List<User> userList = userService.getUserList(query, pagenum, pagesize);
-        return userList;
+        int total = userService.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("userList",userList);
+        map.put("total",total);
+        return map;
     }
 
     @RequestMapping("/delete")

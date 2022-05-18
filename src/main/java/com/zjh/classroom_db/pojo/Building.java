@@ -9,6 +9,8 @@ public class Building {
 
     private String buildingName;
 
+    private String campusName;
+
     private Date createTime;
 
     private Date updateTime;
@@ -17,6 +19,14 @@ public class Building {
 
     public int getClassroomCount() {
         return ClassroomCount;
+    }
+
+    public String getCampusName() {
+        return campusName;
+    }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName;
     }
 
     public void setClassroomCount(int classroomCount) {

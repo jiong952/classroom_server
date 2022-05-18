@@ -3,10 +3,13 @@ package com.zjh.classroom_db.controller;
 import com.zjh.classroom_db.pojo.Campus;
 import com.zjh.classroom_db.service.CampusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张俊鸿
@@ -14,6 +17,7 @@ import java.util.List;
  * @since 2022-05-18 16:16
  */
 @RestController()
+@CrossOrigin
 @RequestMapping("/campus")
 public class CampusController {
     @Autowired
@@ -21,7 +25,11 @@ public class CampusController {
     @RequestMapping("/get")
     public Object getCampusList(String query,int pagenum,int pagesize){
         List<Campus> campusList = campusService.getCampusList(query, pagenum, pagesize);
-        return campusList;
+        int total = campusService.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("campusList",campusList);
+        map.put("total",total);
+        return map;
     }
     @RequestMapping("/delete")
     public Object removeCampus(int campusId){

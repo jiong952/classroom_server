@@ -2,6 +2,7 @@ package com.zjh.classroom_db.service;
 
 import com.github.pagehelper.PageHelper;
 import com.zjh.classroom_db.mapper.BuildingMapper;
+import com.zjh.classroom_db.mapper.CampusMapper;
 import com.zjh.classroom_db.mapper.ClassroomMapper;
 import com.zjh.classroom_db.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.List;
 public class BuildingService {
     @Autowired
     private ClassroomMapper classroomMapper;
+
+    @Autowired
+    private CampusMapper campusMapper;
 
     @Autowired
     private BuildingMapper buildingMapper;
@@ -44,6 +48,8 @@ public class BuildingService {
             ClassroomExample classroomExample = new ClassroomExample();
             classroomExample.createCriteria().andCampusIdEqualTo(building.getCampusId());
             building.setClassroomCount((int) classroomMapper.countByExample(classroomExample));
+            //加入校区名称
+            building.setCampusName(campusMapper.selectByPrimaryKey(building.getCampusId()).getCampusName());
         }
         return buildingList;
     }
@@ -85,5 +91,13 @@ public class BuildingService {
         int i = buildingMapper.updateByPrimaryKeySelective(building);
         if(i > 0) flag = true;
         return flag;
+    }
+    /**
+     * 返回总数
+     *
+     * @return int
+     */
+    public int getTotal(){
+        return  (int)buildingMapper.countByExample(null);
     }
 }

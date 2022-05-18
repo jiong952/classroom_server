@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.classroom_db.mapper.BuildingMapper">
+  <resultMap id="BaseResultMap" type="com.zjh.classroom_db.pojo.Building">
+    <id column="building_id" jdbcType="INTEGER" property="buildingId" />
+    <result column="campus_id" jdbcType="INTEGER" property="campusId" />
+    <result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    building_id, campus_id, building_name, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.zjh.classroom_db.pojo.BuildingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from building
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from building
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zjh.classroom_db.pojo.BuildingExample">
+    delete from building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zjh.classroom_db.pojo.Building">
+    insert into building (building_id, campus_id, building_name, 
+      create_time, update_time)
+    values (#{buildingId,jdbcType=INTEGER}, #{campusId,jdbcType=INTEGER}, #{buildingName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjh.classroom_db.pojo.Building">
+    insert into building
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        building_id,
+      </if>
+      <if test="campusId != null">
+        campus_id,
+      </if>
+      <if test="buildingName != null">
+        building_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        #{buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="campusId != null">
+        #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zjh.classroom_db.pojo.BuildingExample" resultType="java.lang.Long">
+    select count(*) from building
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update building
+    <set>
+      <if test="record.buildingId != null">
+        building_id = #{record.buildingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.campusId != null">
+        campus_id = #{record.campusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildingName != null">
+        building_name = #{record.buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update building
+    set building_id = #{record.buildingId,jdbcType=INTEGER},
+      campus_id = #{record.campusId,jdbcType=INTEGER},
+      building_name = #{record.buildingName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjh.classroom_db.pojo.Building">
+    update building
+    <set>
+      <if test="campusId != null">
+        campus_id = #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="buildingName != null">
+        building_name = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjh.classroom_db.pojo.Building">
+    update building
+    set campus_id = #{campusId,jdbcType=INTEGER},
+      building_name = #{buildingName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where building_id = #{buildingId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -46,7 +46,7 @@ public class BuildingService {
         for (Building building : buildingList) {
             //加入数量
             ClassroomExample classroomExample = new ClassroomExample();
-            classroomExample.createCriteria().andCampusIdEqualTo(building.getCampusId());
+            classroomExample.createCriteria().andBuildingIdEqualTo(building.getBuildingId());
             building.setClassroomCount((int) classroomMapper.countByExample(classroomExample));
             //加入校区名称
             building.setCampusName(campusMapper.selectByPrimaryKey(building.getCampusId()).getCampusName());

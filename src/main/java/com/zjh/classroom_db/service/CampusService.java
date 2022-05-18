@@ -44,13 +44,16 @@ public class CampusService {
         PageHelper.startPage(pageNum,pageSize);
         campusList = campusMapper.selectByExample(example);
         for (Campus campus : campusList) {
-            //加入数量
+            //加入楼宇数量
             BuildingExample buildingExample = new BuildingExample();
             buildingExample.createCriteria().andCampusIdEqualTo(campus.getCampusId());
             campus.setBuildingCount((int) buildingMapper.countByExample(buildingExample));
             ClassroomExample classroomExample = new ClassroomExample();
+            //加入教室数量
             classroomExample.createCriteria().andCampusIdEqualTo(campus.getCampusId());
             campus.setClassroomCount((int) classroomMapper.countByExample(classroomExample));
+            //加入楼宇列表
+            campus.setBuildingList(buildingMapper.selectByExample(buildingExample));
         }
         return campusList;
     }

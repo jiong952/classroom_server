@@ -15,10 +15,14 @@ public class Building {
 
     private Date updateTime;
 
-    private int ClassroomCount;
+    private int classroomCount;
 
     public int getClassroomCount() {
-        return ClassroomCount;
+        return classroomCount;
+    }
+
+    public void setClassroomCount(int classroomCount) {
+        this.classroomCount = classroomCount;
     }
 
     public String getCampusName() {
@@ -29,9 +33,6 @@ public class Building {
         this.campusName = campusName;
     }
 
-    public void setClassroomCount(int classroomCount) {
-        ClassroomCount = classroomCount;
-    }
 
     public Integer getBuildingId() {
         return buildingId;

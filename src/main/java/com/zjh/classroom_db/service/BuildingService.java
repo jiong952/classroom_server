@@ -37,9 +37,9 @@ public class BuildingService {
     public List<Building> getBuildingList(String query, int pageNum, int pageSize){
         List<Building> buildingList;
         BuildingExample example = new BuildingExample();
+
         if(query != null && !query.equals("")){
-            query = "%" + query + "%";
-            example.createCriteria().andBuildingNameLike(query);
+            example.createCriteria().andCampusIdEqualTo(Integer.parseInt(query));
         }
         PageHelper.startPage(pageNum,pageSize);
         buildingList = buildingMapper.selectByExample(example);
@@ -97,7 +97,17 @@ public class BuildingService {
      *
      * @return int
      */
-    public int getTotal(){
-        return  (int)buildingMapper.countByExample(null);
+    public int getTotal(String query){
+        int total = 0;
+        BuildingExample example = new BuildingExample();
+
+        if(query != null && !query.equals("")){
+            example.createCriteria().andCampusIdEqualTo(Integer.parseInt(query));
+            List<Building> buildings = buildingMapper.selectByExample(example);
+            total = buildings.size();
+        }else {
+            total = (int)buildingMapper.countByExample(null);
+        }
+        return  total;
     }
 }

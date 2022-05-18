@@ -1,8 +1,10 @@
 package com.zjh.classroom_db.controller;
 
+import com.zjh.classroom_db.mapper.CampusMapper;
 import com.zjh.classroom_db.pojo.Building;
 import com.zjh.classroom_db.pojo.Campus;
 import com.zjh.classroom_db.service.BuildingService;
+import com.zjh.classroom_db.service.CampusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,18 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
 
+    @Autowired
+    private CampusService campusService;
+
+
     @RequestMapping("/get")
     public Object getBuildingList(String query,int pagenum,int pagesize){
         List<Building> buildingList = buildingService.getBuildingList(query, pagenum, pagesize);
-        int total = buildingService.getTotal();
+        int total = buildingService.getTotal(query);
+        List<Campus> campusList = campusService.getCampusList("", 1, 1000);
         Map<String, Object> map = new HashMap<>();
         map.put("buildingList",buildingList);
+        map.put("campusList",campusList);
         map.put("total",total);
         return map;
     }

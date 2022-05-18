@@ -136,8 +136,7 @@ public class ClassroomService {
         List<Classroom> classroomList;
         ClassroomExample example = new ClassroomExample();
         if(query != null && !query.equals("")){
-            query = "%" + query + "%";
-            example.createCriteria().andClassroomNameLike(query);
+            example.createCriteria().andBuildingIdEqualTo(Integer.parseInt(query));
         }
         PageHelper.startPage(pageNum,pageSize);
         classroomList = classroomMapper.selectByExample(example);
@@ -203,7 +202,16 @@ public class ClassroomService {
      *
      * @return int
      */
-    public int getTotal(){
-        return  (int)classroomMapper.countByExample(null);
+    public int getTotal(String query){
+        int total = 0;
+        ClassroomExample example = new ClassroomExample();
+        if(query != null && !query.equals("")){
+            example.createCriteria().andBuildingIdEqualTo(Integer.parseInt(query));
+            List<Classroom> classrooms = classroomMapper.selectByExample(example);
+            total = classrooms.size();
+        }else {
+            total = (int)classroomMapper.countByExample(null);
+        }
+        return  total;
     }
 }

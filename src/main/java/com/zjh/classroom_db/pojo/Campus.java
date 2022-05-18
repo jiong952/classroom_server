@@ -1,6 +1,7 @@
 package com.zjh.classroom_db.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Campus {
     private Integer campusId;
@@ -14,6 +15,16 @@ public class Campus {
     public int buildingCount;
 
     public int classroomCount;
+
+    private List<Building> buildingList;
+
+    public List<Building> getBuildingList() {
+        return buildingList;
+    }
+
+    public void setBuildingList(List<Building> buildingList) {
+        this.buildingList = buildingList;
+    }
 
     public int getClassroomCount() {
         return classroomCount;

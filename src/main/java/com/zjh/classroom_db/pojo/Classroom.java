@@ -113,4 +113,21 @@ public class Classroom {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "classroomId=" + classroomId +
+                ", campusId=" + campusId +
+                ", buildingId=" + buildingId +
+                ", classroomName='" + classroomName + '\'' +
+                ", campusName='" + campusName + '\'' +
+                ", buildingName='" + buildingName + '\'' +
+                ", adminName='" + adminName + '\'' +
+                ", adminId=" + adminId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", state=" + state +
+                '}';
+    }
 }

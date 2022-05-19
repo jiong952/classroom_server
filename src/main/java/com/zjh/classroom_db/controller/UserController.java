@@ -54,6 +54,7 @@ public class UserController {
 
     @RequestMapping("/add")
     public Object addUser(User user){
+        System.out.println(user);
         boolean status = userService.addUser(user);
         return status;
     }
